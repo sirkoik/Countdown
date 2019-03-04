@@ -35,6 +35,7 @@ function Timer(timerBody) {
             t0: new Date(t0).getTime(),
             t1: new Date(t1).getTime(),
             func: 'simpleDHMS',
+            outputFunction: 'outputText',
             notes: ''
         };
         
@@ -119,16 +120,25 @@ function Timer(timerBody) {
                     
                 case 'command-type-seconds':
                     timerBody.changeType(obj, 'seconds');
+                    obj.outputFunction = 'outputText';
                     _self.save();
                 break;
                     
                 case 'command-type-simpleDHMS':
                     timerBody.changeType(obj, 'simpleDHMS');
+                    obj.outputFunction = 'outputText';
                     _self.save();
                 break;
                     
                 case 'command-type-textDHMS':
                     timerBody.changeType(obj, 'textDHMS');
+                    obj.outputFunction = 'outputText';
+                    _self.save();
+                break;
+                    
+                case 'command-type-bar':
+                    timerBody.changeType(obj, 'bar');
+                    obj.outputFunction = 'outputBar';
                     _self.save();
                 break;
                     

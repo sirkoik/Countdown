@@ -91,6 +91,17 @@ function TimerBodies() {
         return sArr;
     }
     
+    this.bar = function(t0, t1) {
+        //var obj = this.DHMSfunct(t0, t1);
+        var curTime = new Date().getTime();
+        var l = t1 - t0;
+        var lCur = curTime - t0;
+        
+        var pct = lCur / l;
+        
+        return Math.round(10000 * pct, 2) / 100;
+    }
+    
     this.seconds0 = function(t0, t1) {
         var math = Math.round((t1 - t0) / 1000);
         
@@ -109,17 +120,31 @@ function TimerBodies() {
         return [obj1, obj2];           
     }
     
+    // Fix: stop, start output function intervals on change.
     this.startTimer = function(obj) {
         intervals['interval'+obj.index] = setInterval(function() {
-            var ret = _self[obj.func](obj.t0, obj.t1);
-
-            var html = (ret[0].outString === ret[1].outString)? ret[0].outString + ' ' + ret[0].signStr + ' ' + new Date(obj.t0) : ret[0].outString + ' ' + ret[0].signStr + ' ' + new Date(obj.t0) + '<br/><br/>' + ret[1].outString + ' ' + ret[1].signStr + ' ' + new Date(obj.t1);
-            $('#timer'+obj.index).find('.timer-body').html(html);
+            
+            // checks output function each time.
+            var outputFunct = obj.outputFunction? obj.outputFunction : 'outputText';
+            //_self.outputText(obj);
+            _self[outputFunct](obj);
         }, 500);
     }
     
     this.clearTimer = function(obj) {
         clearInterval(intervals['interval'+obj.index]);
+    }
+    
+    this.outputText = function(obj) {
+        var ret = _self[obj.func](obj.t0, obj.t1);
+
+        var html = (ret[0].outString === ret[1].outString)? ret[0].outString + ' ' + ret[0].signStr + ' ' + new Date(obj.t0) : ret[0].outString + ' ' + ret[0].signStr + ' ' + new Date(obj.t0) + '<br/><br/>' + ret[1].outString + ' ' + ret[1].signStr + ' ' + new Date(obj.t1);
+        $('#timer'+obj.index).find('.timer-body').html(html);        
+    }
+    
+    this.outputBar = function(obj) {
+        var ret = _self[obj.func](obj.t0, obj.t1);
+        $('#timer'+obj.index).find('.timer-body').html(ret + '%'); // just displays a text percentage
     }
     
     this.changeType = function(obj, toType) {
