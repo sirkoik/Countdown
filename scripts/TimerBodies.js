@@ -128,7 +128,9 @@ function TimerBodies() {
             var outputFunct = obj.outputFunction? obj.outputFunction : 'outputText';
             //_self.outputText(obj);
             _self[outputFunct](obj);
-            _self.blink(obj);
+            
+            // BLINK-1 disable programmatic blinking for now
+            //_self.blink(obj);
         }, 500);
     }
     
@@ -136,6 +138,7 @@ function TimerBodies() {
         clearInterval(intervals['interval'+obj.index]);
     }
     
+    // outputText: output text.
     this.outputText = function(obj) {
         var ret = _self[obj.func](obj.t0, obj.t1);
 
@@ -143,6 +146,7 @@ function TimerBodies() {
         $('#timer'+obj.index).find('.timer-body').find('.text').html(html);        
     }
     
+    // outputBar: output a bar graph.
     this.outputBar = function(obj) {
         var ret = _self[obj.func](obj.t0, obj.t1);
         var $timerBody = $('#timer'+obj.index).find('.timer-body');
@@ -150,6 +154,9 @@ function TimerBodies() {
             .attr('title',ret + '%')
             .find('.bar').css('width', ret + '%')
         $timerBody.find('.bar-pct').html(ret + '%');
+        
+        // text goes with bar. prevent the text from running off the right side at high values.
+        if (ret < 75) $timerBody.find('.bar-pct').css('left', ret + '%')
     }
     
     this.changeType = function(obj, toType) {
@@ -157,7 +164,7 @@ function TimerBodies() {
     }
     
     // manageAdditions: Set up the initial environment for a specific type of output.
-    // outFunc : supply an output function when necessary (good when doing this out of order)
+    // @outFunc: supply an output function when necessary (good when doing this out of order)
     this.manageAdditions = function(obj, outFunc) {
         var $timerBody = $('#timer'+obj.index).find('.timer-body');
         
@@ -182,6 +189,7 @@ function TimerBodies() {
         $timerBody.append('<div class="blinker-fade"></div>');
     }
     
+    // BLINK-1 disable programmatic blinking for now
     this.blink = function(obj) {
 //        var $timerBody = $('#timer'+obj.index).find('.timer-body');
 //        $timerBody.find('.blinker').toggle();

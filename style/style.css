@@ -4,6 +4,10 @@ body {
     background: #54798E;
 }
 
+* {
+    color: #022438;
+}
+
 #buttons {
     margin: 0 0 5px 0;
     padding: 2px;
@@ -13,7 +17,7 @@ body {
 
 button, input {
     background-color: #285570;
-    border: 1px solid #000;
+    border: 1px solid #022438;
     color: #8A9FAC;
 }
 
@@ -22,7 +26,7 @@ button, input {
     width: 200px;
     height: 200px;
     
-    border: 1px solid #000;
+    border: 1px solid #022438;
     padding: 2px;
     margin: 2px;
     
@@ -44,6 +48,7 @@ button, input {
     width: 180;
     height: 20px;
     line-height: 20px;
+    color: #8A9FAC;
 }
 
 
@@ -76,7 +81,7 @@ button, input {
     top: 0; left: 0;
     
     background: #8A9FAC;
-    border: 1px solid #000;
+    border: 1px solid #022438;
 }
 
 #timer-menu div {
@@ -107,7 +112,7 @@ button, input {
 
 .bar-pct {
     position:absolute;
-    bottom: 10;
+    top: calc(50% - 0.7em);
     right: 10;
 }
 
@@ -133,4 +138,12 @@ button, input {
     animation-name: blinker-fade;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+}
+
+/*version*/
+
+.version {
+    display:inline-block;
+    float: right;
+    color: #8A9FAC;
 }
