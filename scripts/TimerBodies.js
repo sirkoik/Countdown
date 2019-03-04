@@ -128,6 +128,7 @@ function TimerBodies() {
             var outputFunct = obj.outputFunction? obj.outputFunction : 'outputText';
             //_self.outputText(obj);
             _self[outputFunct](obj);
+            _self.blink(obj);
         }, 500);
     }
     
@@ -139,15 +140,15 @@ function TimerBodies() {
         var ret = _self[obj.func](obj.t0, obj.t1);
 
         var html = (ret[0].outString === ret[1].outString)? ret[0].outString + ' ' + ret[0].signStr + ' ' + new Date(obj.t0) : ret[0].outString + ' ' + ret[0].signStr + ' ' + new Date(obj.t0) + '<br/><br/>' + ret[1].outString + ' ' + ret[1].signStr + ' ' + new Date(obj.t1);
-        $('#timer'+obj.index).find('.timer-body').html(html);        
+        $('#timer'+obj.index).find('.timer-body').find('.text').html(html);        
     }
     
     this.outputBar = function(obj) {
         var ret = _self[obj.func](obj.t0, obj.t1);
-        var $timerBody = $('#timer'+obj.index);
-        $timerBody.find('.timer-body').find('.bar')
-            .css('width', ret + '%')
-            .attr('title',ret + '%');
+        var $timerBody = $('#timer'+obj.index).find('.timer-body');
+        $timerBody
+            .attr('title',ret + '%')
+            .find('.bar').css('width', ret + '%')
         $timerBody.find('.bar-pct').html(ret + '%');
     }
     
@@ -165,15 +166,25 @@ function TimerBodies() {
         switch(outFunc) {
             case 'outputText': 
             default:
-                $timerBody.empty();
+                $timerBody
+                    .empty()
+                    .append('<div class="text"></div>');
             break;
             case 'outputBar':
-                $timerBody.empty();
                 $timerBody
+                    .empty()
                     .append('<div class="bar"></div>')
                     .append('<div class="bar-pct"></div>');
             break;
         }
+        
+        // append blinker pip.
+        $timerBody.append('<div class="blinker-fade"></div>');
+    }
+    
+    this.blink = function(obj) {
+//        var $timerBody = $('#timer'+obj.index).find('.timer-body');
+//        $timerBody.find('.blinker').toggle();
     }
     
     this.zp = function(num) {

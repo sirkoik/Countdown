@@ -3,13 +3,28 @@ function Timer(timerBody) {
     var timers = {};
     
     this.init = function() {
+        // try to get the data from localStorage and / or URI.
+        var timerSuccess = false;
+        
         try {
             timers = JSON.parse(localStorage.getItem('timers'));
+            timerSuccess = true;
         } catch(e) {
-            timers = {index: 0, timers: {}};
+
         }
 
-        if (timers === null) timers = {index: 0, timers: {}};
+        if (timers === null || !timerSuccess) {
+            timers = {index: 0, timers: {}};
+            
+            // if countdown data exists in query string, use it.
+            urlParams = new URLSearchParams(location.search);
+            const uriData = urlParams.get('data');
+            
+            if (uriData && uriData != null) {
+                timers = JSON.parse(atob(uriData));
+                this.save();
+            }
+        }
         
         if ($.isEmptyObject(timers)) return false;
         
@@ -83,6 +98,40 @@ function Timer(timerBody) {
             var infoArr = info.split(',');
             _self.add(infoArr[0], infoArr[1], infoArr[2], infoArr[3]);
         });
+        
+        // Generate URL with saved data in it.
+        $('#btn-gen-url').click(function() {
+            var str = localStorage.getItem('timers');
+            var base64 = btoa(str);
+            var url = document.URL.match(/[^\?]+/) + '?data=' + base64;
+            
+            //prompt('Copy this and paste it into the URL bar. Then bookmark to save your countdowns and settings.', url);
+            
+            var gotoNew = confirm('Now navigating to newly generated counter URL.');
+            if (gotoNew) location.href = url;
+            
+
+            
+            /* decoding code 
+            uriData = base64;
+            
+            console.log(uriData);
+            
+            var decoded = atob(uriData);//JSON.parse(atob(uriData));
+            
+            console.log(JSON.parse(decoded));
+            
+            */
+        });
+        
+        // clear local storage.
+        $('#btn-clear-local').click(function() {
+            var remTimers = confirm('This will remove the timer data from localStorage. It will have no effect on the data stored via URL. Local changes made before generating a new URL will be lost.');
+            if (remTimers) {
+                localStorage.removeItem('timers');
+                location.reload();
+            }
+        })
         
         $('#timers').on('click', '.timer-dropdown', function(e) {
             var id = $(this).parents('.timer').attr('id');

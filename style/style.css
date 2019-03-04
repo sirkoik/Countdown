@@ -110,3 +110,27 @@ button, input {
     bottom: 10;
     right: 10;
 }
+
+/*blinker pip*/
+.blinker, .blinker-fade {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    right: 0px;
+    bottom: 4px;
+    
+    background: #fff;
+}
+
+/*fading blinker pip*/
+@keyframes blinker-fade {
+    0%   { opacity: 0; }
+    50%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.blinker-fade {
+    animation-name: blinker-fade;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
