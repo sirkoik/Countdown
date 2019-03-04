@@ -4,4 +4,9 @@ Added a system for saving data into the GET string, so you can bookmark your tim
 
 # Countdown v0.05
 
+Release with graphical output.
 Note: descriptions are hidden for now (just with CSS). Need to rearrange the HTML.
+
+# Countdown v0.01
+
+Initial very basic release with no graphical output.
