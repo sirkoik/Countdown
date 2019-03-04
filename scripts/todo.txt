@@ -1,0 +1,2 @@
+Optional starting time for timers, which would allow graphics.
+Change counter formats - right now this is hard set.

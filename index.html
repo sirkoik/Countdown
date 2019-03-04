@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script src="scripts/TimerBodies.js"></script>
+        <script src="scripts/Timer.js"></script>
+        <script src="scripts/Controller.js"></script>
+        <link rel="stylesheet" type="text/css" href="style/style.css">
+	<title>Timers, measuring both countowns and ranges. Work in progress.</title>
+    </head>
+    <body>
+        <div id="buttons">
+            <input type="button" id="btn-add" value="Add"/>
+        </div>
+        
+        <div id="timers">
+            
+        </div>
+        
+        <div id="timer-template" class="timer" style="display:none;">
+            <div class="timer-top">
+                <div class="timer-title"></div>
+                <div class="timer-dropdown"><img src="images/dropdown.svg"></div>                
+            </div>
+            
+            <div class="timer-body"></div>
+            <div class="timer-desc"></div>
+        </div>
+        
+        <div id="timer-menu">
+            <div class="indent-0">Type</div>
+            <div id="command-type-seconds" class="indent-10">T+/- seconds</div>
+            <div id="command-type-simpleDHMS" class="indent-10">+/- D:H:M:S</div>
+            <div id="command-type-textDHMS" class="indent-10">d h m s t/p</div>
+            <div class="indent-0">-</div>
+            <div class="indent-0">Edit</div>
+            <div id="command-type-edit-title" class="indent-10">Title</div>
+            <div id="command-type-edit-desc" class="indent-10">Description</div>
+            <div class="indent-0">-</div>
+            <div class="indent-0" id="command-delete">Delete</div>
+        </div>
+        
+        <div id="pie-template">
+            <canvas width="150" height="150">
+            </canvas>
+        </div>
+    </body>
+</html>
