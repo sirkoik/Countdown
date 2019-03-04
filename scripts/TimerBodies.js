@@ -144,11 +144,36 @@ function TimerBodies() {
     
     this.outputBar = function(obj) {
         var ret = _self[obj.func](obj.t0, obj.t1);
-        $('#timer'+obj.index).find('.timer-body').html(ret + '%'); // just displays a text percentage
+        var $timerBody = $('#timer'+obj.index);
+        $timerBody.find('.timer-body').find('.bar')
+            .css('width', ret + '%')
+            .attr('title',ret + '%');
+        $timerBody.find('.bar-pct').html(ret + '%');
     }
     
     this.changeType = function(obj, toType) {
         obj.func = toType;
+    }
+    
+    // manageAdditions: Set up the initial environment for a specific type of output.
+    // outFunc : supply an output function when necessary (good when doing this out of order)
+    this.manageAdditions = function(obj, outFunc) {
+        var $timerBody = $('#timer'+obj.index).find('.timer-body');
+        
+        var outFunc = outFunc? outFunc : obj.outputFunction;
+        
+        switch(outFunc) {
+            case 'outputText': 
+            default:
+                $timerBody.empty();
+            break;
+            case 'outputBar':
+                $timerBody.empty();
+                $timerBody
+                    .append('<div class="bar"></div>')
+                    .append('<div class="bar-pct"></div>');
+            break;
+        }
     }
     
     this.zp = function(num) {
@@ -167,9 +192,5 @@ function TimerBodies() {
         if (!newDesc || newDesc == '') return false;
         obj.desc = newDesc;
     }   
-    // canvas / CSS? pie chart.
-    this.pie = function(t0, c) {
-        c.clear();
-        ctx.beginPath();
-    }
+
 }

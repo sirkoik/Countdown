@@ -66,6 +66,8 @@ function Timer(timerBody) {
         $timer.find('.timer-title').html(obj.title).attr('title', 'Added ' + new Date(obj.added));
         $timer.find('.timer-desc').html(obj.desc);
         
+        timerBody.manageAdditions(obj);
+        
         $timer.show();        
     }
     
@@ -119,24 +121,28 @@ function Timer(timerBody) {
                 break;
                     
                 case 'command-type-seconds':
+                    timerBody.manageAdditions(obj);
                     timerBody.changeType(obj, 'seconds');
                     obj.outputFunction = 'outputText';
                     _self.save();
                 break;
                     
                 case 'command-type-simpleDHMS':
+                    timerBody.manageAdditions(obj);
                     timerBody.changeType(obj, 'simpleDHMS');
                     obj.outputFunction = 'outputText';
                     _self.save();
                 break;
                     
                 case 'command-type-textDHMS':
+                    timerBody.manageAdditions(obj);
                     timerBody.changeType(obj, 'textDHMS');
                     obj.outputFunction = 'outputText';
                     _self.save();
                 break;
                     
                 case 'command-type-bar':
+                    timerBody.manageAdditions(obj, 'outputBar');
                     timerBody.changeType(obj, 'bar');
                     obj.outputFunction = 'outputBar';
                     _self.save();
