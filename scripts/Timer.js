@@ -92,7 +92,7 @@ function Timer(timerBody) {
     
     this.bindEm = function () {
         $('#btn-add').click(function() {
-            var info = prompt('Enter Title, Description, t0, t1', 'Lorem ipsum et dolor,A description,some time 0, some time 1');
+            var info = prompt('Enter Title, Description, t0, t1', 'Lorem ipsum et dolor,A description,' + new Date() + ',' + new Date());
             if (!info) return false;
             
             var infoArr = info.split(',');
@@ -170,23 +170,23 @@ function Timer(timerBody) {
                 break;
                     
                 case 'command-type-seconds':
+                    obj.outputFunction = 'outputText';
                     timerBody.manageAdditions(obj);
                     timerBody.changeType(obj, 'seconds');
-                    obj.outputFunction = 'outputText';
                     _self.save();
                 break;
                     
                 case 'command-type-simpleDHMS':
+                    obj.outputFunction = 'outputText';
                     timerBody.manageAdditions(obj);
                     timerBody.changeType(obj, 'simpleDHMS');
-                    obj.outputFunction = 'outputText';
                     _self.save();
                 break;
                     
                 case 'command-type-textDHMS':
+                    obj.outputFunction = 'outputText';
                     timerBody.manageAdditions(obj);
                     timerBody.changeType(obj, 'textDHMS');
-                    obj.outputFunction = 'outputText';
                     _self.save();
                 break;
                     

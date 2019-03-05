@@ -18,7 +18,7 @@ body {
 button, input {
     background-color: #285570;
     border: 1px solid #022438;
-    color: #8A9FAC;
+    color: #ccc;
 }
 
 .timer {
@@ -26,7 +26,7 @@ button, input {
     width: 200px;
     height: 200px;
     
-    border: 1px solid #022438;
+    border: 1px solid #ccc;
     padding: 2px;
     margin: 2px;
     
@@ -48,7 +48,7 @@ button, input {
     width: 180;
     height: 20px;
     line-height: 20px;
-    color: #8A9FAC;
+    color: #ccc;
 }
 
 

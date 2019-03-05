@@ -143,7 +143,8 @@ function TimerBodies() {
         var ret = _self[obj.func](obj.t0, obj.t1);
 
         var html = (ret[0].outString === ret[1].outString)? ret[0].outString + ' ' + ret[0].signStr + ' ' + new Date(obj.t0) : ret[0].outString + ' ' + ret[0].signStr + ' ' + new Date(obj.t0) + '<br/><br/>' + ret[1].outString + ' ' + ret[1].signStr + ' ' + new Date(obj.t1);
-        $('#timer'+obj.index).find('.timer-body').find('.text').html(html);        
+        $('#timer'+obj.index).find('.timer-body').find('.text').html(html);
+        
     }
     
     // outputBar: output a bar graph.
@@ -169,7 +170,7 @@ function TimerBodies() {
         var $timerBody = $('#timer'+obj.index).find('.timer-body');
         
         var outFunc = outFunc? outFunc : obj.outputFunction;
-        
+
         switch(outFunc) {
             case 'outputText': 
             default:
