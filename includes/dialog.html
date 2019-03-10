@@ -1,0 +1,126 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<style>
+    .dt-input {
+        width: 2em;
+    }
+    
+    .dt-input-yy {
+        width: 4em;
+    }
+    
+    label.dt {
+        display: inline-block;
+        width: 2.5em;
+    }
+</style>
+
+<script>
+// Adder dialog: Part of the 0.2 branch.    
+    
+(function($) {
+    $.fn.adderDialog = function(action) {
+        var dt = new Date();
+        
+        var padZeros = function(input) {
+            return input < 10? '0' + input : input;
+        }
+        
+        // Split supplied Date dates into components
+        var dates = function(dt0, dt1) {
+            var datesArr = [];
+            for (var x = 0; x <= 1; x++) {
+                dt = arguments[x];
+                
+                datesArr.push(
+                    dt.getFullYear(),
+                    padZeros(dt.getMonth()+1),
+                    padZeros(dt.getDate()),
+                    padZeros(dt.getHours()),
+                    padZeros(dt.getMinutes()),
+                    padZeros(dt.getSeconds())           
+                );
+            }
+        
+            return datesArr;
+        }
+        
+        var datesOut = dates(new Date(), new Date());
+        
+        $('.dt-input').each(function(k, v) {
+            $(this).val(datesOut[k]);
+        });
+        
+        // fill in one set of Date/Times with today's date / time.
+        $('.dt-add-today').click(function() {
+            var datesArr = dates(new Date(), new Date());
+            
+            $cur = $(this).prev('.dt-input');
+            for (var x = 5; x >= 0; x--) {
+                $cur.val(datesArr[x]);
+                $cur = $cur.prev();
+            }
+        });
+        
+        // clear one set of Date/Times.
+        $('.dt-clear-set').click(function() {
+            $cur = $(this).prev().prev('.dt-input');
+            for (var x = 0; x <= 5; x++) {
+                $cur.val('');
+                $cur = $cur.prev();
+            }
+            
+        });
+    };
+    
+}(jQuery));
+    
+    $(function() {
+        $('#add').adderDialog();
+    });
+</script>
+
+<div class="dialog">
+    <div class="dialog-title"></div>
+    <div class="dialog-body"></div>
+</div>
+<label class="dt">Title</label>
+<input type="text" class="dt-title" value="Counter no.1">
+
+<p></p>
+
+<div class="dt-select">
+    <label class="dt">Start</label>
+    <input type="text" class="dt-input dt-input-yy"> - 
+    <input type="text" class="dt-input"> - 
+    <input type="text" class="dt-input"> 
+    at 
+    <input type="text" class="dt-input"> : 
+    <input type="text" class="dt-input"> : 
+    <input type="text" class="dt-input">
+    
+    <input type="button" class="dt-add-today" value="Today">
+    <input type="button" class="dt-clear-set" value="X">
+    
+    <br/><br/>
+
+    <label class="dt">End</label>
+    <input type="text" class="dt-input dt-input-yy"> - 
+    <input type="text" class="dt-input"> - 
+    <input type="text" class="dt-input"> 
+    at 
+    <input type="text" class="dt-input"> : 
+    <input type="text" class="dt-input"> : 
+    <input type="text" class="dt-input">
+    
+    <input type="button" class="dt-add-today" value="Today">
+    <input type="button" class="dt-clear-set" value="X">
+</div>
+
+<p></p>
+
+<label class="dt">Description</label><br/>
+<textarea class="dt-desc"></textarea>
+
+<p></p>
+
+<input type="button" value="add" id="dt-add">

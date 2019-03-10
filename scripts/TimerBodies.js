@@ -102,6 +102,19 @@ function TimerBodies() {
         return Math.round(10000 * pct, 2) / 100;
     }
     
+    // pie chart calc function
+    // return a fraction of 1 for css "turn"
+    this.pie = function(t0, t1) {
+        //var obj = this.DHMSfunct(t0, t1);
+        var curTime = new Date().getTime();
+        var l = t1 - t0;
+        var lCur = curTime - t0;
+        
+        var pct = lCur / l;
+        return pct;
+    }
+    
+    
     this.seconds0 = function(t0, t1) {
         var math = Math.round((t1 - t0) / 1000);
         
@@ -160,6 +173,23 @@ function TimerBodies() {
         if (ret < 75) $timerBody.find('.bar-pct').css('left', ret + '%')
     }
     
+    // outputPie: output a pie graph.
+    this.outputPie = function(obj) {
+        // pie output
+       var ret = _self[obj.func](obj.t0, obj.t1);
+        var $timerBody = $('#timer'+obj.index).find('.timer-body');
+
+        var retReadable = Math.round(10000 * ret, 2) / 100;;
+        $timerBody
+            .attr('title',retReadable + '%');        
+        
+        var pieCSS = ret > 0.5? { transform: 'rotate('+(ret-0.5)+'turn)' } : {  transform: 'rotate('+ret+'turn)', 'background-image': 'linear-gradient(to right, transparent 50%, #54798E 0' };
+        
+        $timerBody.find('.pie-before').css(pieCSS);
+        $timerBody.find('.pie-pct').html(retReadable + '%');
+    }
+    
+    
     this.changeType = function(obj, toType) {
         obj.func = toType;
     }
@@ -183,6 +213,12 @@ function TimerBodies() {
                     .empty()
                     .append('<div class="bar"></div>')
                     .append('<div class="bar-pct"></div>');
+            break;
+            case 'outputPie':
+                $timerBody
+                    .empty()
+                    .append('<div class="pie-before"></div><div class="pie"></div>')
+                    .append('<div class="pie-pct"></div>');
             break;
         }
         

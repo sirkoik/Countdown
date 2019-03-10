@@ -1,3 +1,8 @@
+# Countdown v0.2.x
+## v0.2
+* Implemented basic, if somewhat sluggish pie chart.
+* Still need to implement easy adder in order for this to meet the v0.2 milestone.
+
 # Countdown v0.1.x
 ## v0.1.1
 * Fixed text output not displaying after switching back from bar.

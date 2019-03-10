@@ -75,6 +75,7 @@ button, input {
 }
 
 #timer-menu {
+    z-index: 5;
     width: 150px;
     display: none;
     position: absolute;
@@ -104,6 +105,8 @@ button, input {
 
 /*visual output types*/
 
+/*bar chart (horizontal)*/
+
 .bar {
     position: absolute;
     left: 0; top: 0; height: calc(100% - 4px);
@@ -115,6 +118,37 @@ button, input {
     top: calc(50% - 0.7em);
     right: 10;
 }
+
+/*pie chart*/
+.pie, .pie-before {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    left: calc(50% - 78px);
+    top: calc(50% - 86px);
+}
+
+
+.pie {
+    border-radius: 50%;
+    background-color: #54798E;
+    background-image: linear-gradient(to right, transparent 50%, #0E3B55 0);
+}
+
+.pie-before {
+    z-index: 2;
+    border-radius: 50%;
+    background-image: linear-gradient(to right, transparent 50%, #0E3B55 0);
+}
+
+.pie-pct {
+    z-index: 3;
+    position: absolute;
+    bottom: 5px;
+    left: 0; right: 0;
+    text-align: center;
+}
+
 
 /*blinker pip*/
 .blinker, .blinker-fade {

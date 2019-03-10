@@ -197,6 +197,13 @@ function Timer(timerBody) {
                     _self.save();
                 break;
                     
+                case 'command-type-pie':
+                    timerBody.manageAdditions(obj, 'outputPie');
+                    timerBody.changeType(obj, 'pie');
+                    obj.outputFunction = 'outputPie';
+                    _self.save();
+                break;                    
+                    
                 case 'command-type-edit-title':
                     var title = prompt('New title? ' + obj.title + ', ' + id, obj.title); 
                     if (title) {
